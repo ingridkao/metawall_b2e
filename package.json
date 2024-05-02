@@ -1,0 +1,14 @@
+{
+  "name": "metawall_b2e",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "build": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.3.2"
+  },
+  "author": "ingridkao",
+  "license": "ISC"
+}
