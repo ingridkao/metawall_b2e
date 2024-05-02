@@ -1,10 +1,10 @@
 const Config = require('./config')
-const port = Config.PORT ?? 8081
-const DB = Config.DATABASE_URL.replace(
+const { PORT, DATABASE_URL, DATABASE_PASSWORD } = Config.parsed
+const DB = DATABASE_URL.replace(
     '<password>',
-    Config.DATABASE_PASSWORD
+    DATABASE_PASSWORD
 )
-
+const port = PORT || 8081
 const http = require('http')
 const url = require('url')
 const mongoose = require('mongoose')
