@@ -1,22 +1,23 @@
-const Config = require('./config')
-const { PORT, DATABASE_URL, DATABASE_PASSWORD } = Config.parsed
-const DB = DATABASE_URL.replace(
-    '<password>',
-    DATABASE_PASSWORD
-)
-const port = PORT || 8081
 const http = require('http')
-const url = require('url')
+const Post = require('./models/post')
+const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+
+const errorHandler = require('./utils/errorHandler')
+const successHandler = require('./utils/successHandler')
+const validHandler = require('./utils/validHandler');
+
+dotenv.config({ path: './.env' })
+const port = process.env.PORT || 8081
+const DB = process.env.DATABASE_URL.replace(
+    '<password>',
+    process.env.DATABASE_PASSWORD
+)
+
 mongoose
 .connect(DB)
 .then(()=>console.log('資料庫連線成功'))
 .catch(()=>console.log('資料庫連接資訊錯誤'))
-
-const Post = require('./models/post')
-const errorHandler = require('./utils/errorHandler')
-const successHandler = require('./utils/successHandler')
-const validHandler = require('./utils/validHandler');
 
 const requestListener = async(req, res) => {
     const parseURL = url.parse(req.url, true)
